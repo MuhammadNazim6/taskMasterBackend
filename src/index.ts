@@ -19,8 +19,11 @@ app.use(cors({
 }));
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-
+app.get('/',(req,res)=>{
+  res.send('This is Taskit backend')
+})
 app.use("/", userRoute);
 
 

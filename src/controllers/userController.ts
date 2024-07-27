@@ -29,8 +29,9 @@ export const signup = async (req: Request, res: Response) => {
     }
     const user = await User.create(data)
     res.status(200).json({
-      success: false,
-      message: 'Signup successfull'
+      success: true,
+      message: 'Signup successfull',
+      data: user
     });
   } catch (error) {
     console.error(error);
@@ -40,12 +41,12 @@ export const signup = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    
+
     const userExists = await User.findOne({ email: req.body.email });
     if (!userExists) {
       res.status(400).json({
         success: false,
-        message: 'User does not exist'
+        message: 'User does not exist',
       });
       return
     }
@@ -53,14 +54,15 @@ export const login = async (req: Request, res: Response) => {
     if (!passwordMatch) {
       res.status(400).json({
         success: false,
-        message: 'Incorrect password entered'
+        message: 'Incorrect password entered',
       });
       return
     }
 
     res.status(200).json({
       success: true,
-      message: 'Logged in succesfully'
+      message: 'Logged in succesfully',
+      data: userExists
     });
     return
   } catch (error) {
