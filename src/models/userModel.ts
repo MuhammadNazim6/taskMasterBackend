@@ -6,6 +6,7 @@ interface IUser extends Document {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  isGoogle: Boolean
 }
 
 const userSchema: Schema<IUser> = new Schema(
@@ -13,7 +14,8 @@ const userSchema: Schema<IUser> = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    
+    isGoogle: { type: Boolean, required: true, default: false }
+
   },
   {
     timestamps: true
