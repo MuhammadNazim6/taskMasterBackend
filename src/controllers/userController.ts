@@ -16,7 +16,7 @@ export const signup = async (req: Request, res: Response) => {
     const body = req.body;
     const userExists = await User.findOne({ email: body.email });
     if (userExists) {
-      res.status(400).json({
+      res.status(200).json({
         success: false,
         message: 'User already exists'
       });
@@ -41,10 +41,7 @@ export const signup = async (req: Request, res: Response) => {
 
 export const googleSignin = async (req: Request, res: Response) => {
   try {
-    console.log('HHHEKKEK');
     const body = req.body;
-console.log(body);
-
     const userExists = await User.findOne({ email: body.email });
     if (userExists) {
       if (userExists.isGoogle) {
@@ -54,9 +51,10 @@ console.log(body);
         });
         return
       }
-      res.status(400).json({
+      
+      res.status(200).json({
         success: false,
-        message: 'User already exists'
+        message: 'User already exists with this mail'
       });
       return
     }
@@ -85,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
 
     const userExists = await User.findOne({ email: req.body.email });
     if (!userExists) {
-      res.status(400).json({
+      res.status(200).json({
         success: false,
         message: 'User does not exist',
       });
@@ -93,9 +91,9 @@ export const login = async (req: Request, res: Response) => {
     }
     const passwordMatch = await bcrypt.compare(req.body.password, userExists.password);
     if (!passwordMatch) {
-      res.status(400).json({
+      res.status(200).json({
         success: false,
-        message: 'Incorrect password entered',
+        message: 'Incorrect username or password entered',
       });
       return
     }
