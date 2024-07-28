@@ -47,7 +47,8 @@ export const googleSignin = async (req: Request, res: Response) => {
       if (userExists.isGoogle) {
         res.status(200).json({
           success: true,
-          message: 'Logged in successfully'
+          message: 'Logged in successfully',
+          data:userExists
         });
         return
       }
